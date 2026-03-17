@@ -1,0 +1,10 @@
+[
+  { "company":"Maersk", "country":"Denmark", "fleet":700, "type":"Container", "website":"https://www.maersk.com" },
+  { "company":"MSC", "country":"Switzerland", "fleet":750, "type":"Container", "website":"https://www.msc.com" },
+  { "company":"COSCO", "country":"China", "fleet":500, "type":"Mixed", "website":"https://www.coscoshipping.com" },
+  { "company":"NYK", "country":"Japan", "fleet":800, "type":"Bulk/LNG", "website":"https://www.nyk.com" },
+  { "company":"MOL", "country":"Japan", "fleet":700, "type":"Bulk/LNG", "website":"https://www.mol.co.jp" },
+  { "company":"Evergreen", "country":"Taiwan", "fleet":210, "type":"Container", "website":"https://www.evergreen-marine.com" },
+  { "company":"Hapag-Lloyd", "country":"Germany", "fleet":260, "type":"Container", "website":"https://www.hapag-lloyd.com" },
+  { "company":"CMA CGM", "country":"France", "fleet":580, "type":"Container", "website":"https://www.cmacgm-group.com" }
+]
