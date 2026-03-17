@@ -1,0 +1,274 @@
+/* assets/style.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f4f7fb;
+  color: #1e293b;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 头部 */
+header {
+  background: linear-gradient(145deg, #0b3d6d, #143b5c);
+  color: white;
+  padding: 40px 0;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.tagline {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* 导航 */
+nav {
+  background: #1e293b;
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+nav .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+nav a {
+  color: #e2e8f0;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 0;
+  border-bottom: 2px solid transparent;
+  transition: 0.2s;
+}
+
+nav a:hover {
+  color: white;
+  border-bottom-color: #3b82f6;
+}
+
+/* 主内容 */
+main {
+  flex: 1;
+  padding: 40px 0;
+}
+
+.hero {
+  background: #e2e8f0;
+  padding: 60px 0;
+  text-align: center;
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+
+.hero h2 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto 24px;
+}
+
+.btn {
+  display: inline-block;
+  background: #0b3d6d;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #1e4a7a;
+  transform: translateY(-2px);
+}
+
+/* 卡片网格 */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transform: translateY(-4px);
+}
+
+.card h3 {
+  color: #0b3d6d;
+  margin-bottom: 12px;
+}
+
+/* 表格 */
+.table-responsive {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  background: white;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+  background: #0b3d6d;
+  color: white;
+  font-weight: 600;
+}
+
+td a {
+  color: #0b3d6d;
+  text-decoration: none;
+}
+
+td a:hover {
+  text-decoration: underline;
+}
+
+/* 搜索框 */
+.search-box {
+  margin-bottom: 20px;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 40px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #0b3d6d;
+  box-shadow: 0 0 0 3px rgba(11,61,109,0.2);
+}
+
+/* 表单 */
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.contact-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #1e293b;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.contact-form button {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.1rem;
+}
+
+.form-note {
+  text-align: center;
+  margin-top: 16px;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+/* 情报列表 */
+.intel-list {
+  list-style: none;
+  margin: 20px 0;
+}
+
+.intel-list li {
+  padding: 10px 0;
+  border-bottom: 1px dashed #cbd5e1;
+}
+
+/* 案例 */
+.case {
+  background: white;
+  padding: 24px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  border-left: 5px solid #0b3d6d;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* 页脚 */
+footer {
+  background: #1e293b;
+  color: #94a3b8;
+  text-align: center;
+  padding: 24px 0;
+  margin-top: 40px;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  header h1 { font-size: 1.8rem; }
+  nav .container { gap: 12px; }
+  nav a { font-size: 0.9rem; }
+}
