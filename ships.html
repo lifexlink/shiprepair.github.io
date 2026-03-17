@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ships Database – Zhoushan Eastern Docking Advisory</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body id="ships-page">
+  <header>
+    <div class="container">
+      <h1>Key Vessels Database</h1>
+      <p class="tagline">Monitor ships that frequently dock in Asia</p>
+    </div>
+  </header>
+
+  <nav>
+    <div class="container">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="shipowners.html">Shipowners</a>
+      <a href="ships.html">Ships</a>
+      <a href="intelligence.html">Intelligence</a>
+      <a href="cases.html">Cases</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="search-box">
+      <input type="text" id="search" placeholder="Search by ship name or owner..." class="search-input">
+    </div>
+
+    <div class="table-responsive">
+      <table id="ships-table">
+        <thead>
+          <tr>
+            <th>Vessel Name</th>
+            <th>IMO</th>
+            <th>Owner</th>
+            <th>Type</th>
+            <th>DWT</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Zhoushan Eastern Docking Advisory. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>
