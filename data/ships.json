@@ -1,9 +1,0 @@
-[
-  { "name":"Emma Maersk", "imo":"9321483", "owner":"Maersk", "type":"Container", "dwt":156907 },
-  { "name":"MSC Gülsün", "imo":"9776171", "owner":"MSC", "type":"Container", "dwt":197500 },
-  { "name":"COSCO Shipping Universe", "imo":"9795615", "owner":"COSCO", "type":"Container", "dwt":198000 },
-  { "name":"NYK Fuji", "imo":"9698409", "owner":"NYK", "type":"Bulk", "dwt":207000 },
-  { "name":"MOL Triumph", "imo":"9725321", "owner":"MOL", "type":"Container", "dwt":197500 },
-  { "name":"Ever Ace", "imo":"9893988", "owner":"Evergreen", "type":"Container", "dwt":235000 },
-  { "name":"Hapag-Lloyd Berlin", "imo":"9450649", "owner":"Hapag-Lloyd", "type":"Container", "dwt":136000 }
-]
