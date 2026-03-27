@@ -19,7 +19,7 @@
       "name": "Zhoushan Eastern Docking Advisory",
       "description": "Independent dry docking and repair advisory for shipowners working with Chinese shipyards.",
       "telephone": "+8613735028115",
-      "email": "rollinrich@163.com",
+      "email": "info@dockingadvisory.cn",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Zhoushan",
@@ -384,6 +384,7 @@
       height: 100%;
       display: flex;
       flex-direction: column;
+      cursor: pointer;
     }
     .service-card:hover {
       transform: translateY(-10px);
@@ -689,6 +690,66 @@
     .service-card:nth-child(2){animation-delay:0.2s}
     .service-card:nth-child(3){animation-delay:0.3s}
     .service-card:nth-child(4){animation-delay:0.4s}
+
+    /* Blog Detail Styles */
+    .blog-detail {
+      display: none;
+      padding: 4rem 0;
+      min-height: 80vh;
+    }
+    .blog-detail.active {
+      display: block;
+    }
+    .blog-content {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--navy-medium);
+      padding: 3rem;
+      border-radius: 24px;
+      border: 1px solid rgba(42, 136, 173, 0.2);
+    }
+    .blog-content h1 {
+      font-size: 2rem;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      font-family: var(--font-secondary);
+    }
+    .blog-meta {
+      color: var(--accent-orange);
+      margin-bottom: 2rem;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .blog-body {
+      color: var(--light-gray);
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+    .blog-body p {
+      margin-bottom: 1.5rem;
+    }
+    .back-btn {
+      margin-bottom: 2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent-blue);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .back-btn:hover {
+      color: var(--accent-orange);
+    }
+    .blog-list {
+      display: block;
+    }
+    .blog-list.hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -833,7 +894,22 @@
           <h2 class="section-title">Maritime Industry Insights & Blog</h2>
           <p class="section-subtitle">Weekly dry docking, ship repair and cost control guidance for shipowners working with Chinese shipyards</p>
         </div>
-        <div class="cards-grid" id="blogContainer"></div>
+
+        <!-- Blog List -->
+        <div class="blog-list" id="blogList">
+          <div class="cards-grid" id="blogContainer"></div>
+        </div>
+
+        <!-- Blog Detail -->
+        <div class="blog-detail" id="blogDetail">
+          <div class="blog-content">
+            <div class="back-btn" id="backBtn"><i class="fas fa-arrow-left"></i> Back to Blog</div>
+            <h1 id="detailTitle"></h1>
+            <div class="blog-meta" id="detailMeta"></div>
+            <div class="blog-body" id="detailBody"></div>
+          </div>
+        </div>
+
         <div style="text-align:center; margin-top:3.5rem;">
           <a href="#contact" class="btn btn-primary">Request Project Analysis</a>
         </div>
@@ -914,18 +990,146 @@
     },{threshold:0.1});
     document.querySelectorAll('.service-card,.process-card,.list-item').forEach(el=>observer.observe(el));
 
+    // Blog Data with Full Content
+    const blogPosts = [
+      {
+        date:"2025-03-24",
+        title:"2025 China Dry Dock Cost Trends: How to Control Budget for Bulk Carriers",
+        excerpt:"Analysis of latest pricing changes in Zhoushan shipyards, hidden cost drivers, and practical cost control methods for shipowners during dry docking.",
+        keywords:"Dry Docking Cost Control, China Shipyards",
+        content:`
+          <p>The dry docking cost landscape in China is evolving rapidly in 2025, especially for bulk carrier operators. Shipowners are facing increasing pressure from rising material costs, labor shortages, and fluctuating currency exchange rates that impact overall docking expenses.</p>
+          <p>Zhoushan shipyards remain the most popular choice for medium to large bulk carriers due to their strategic location, competitive pricing, and experienced workforce. However, cost structures have shifted significantly over the past 12 months.</p>
+          <p><strong>Key cost drivers in 2025:</strong></p>
+          <p>1. Steel plate and material costs have increased by approximately 12-15% compared to 2024</p>
+          <p>2. Skilled labor costs continue rising as experienced shipyard workers become more scarce</p>
+          <p>3. Environmental compliance requirements add new layers of expenses for waste management and safety</p>
+          <p>4. Utility and energy costs impact overall dry docking operational expenses</p>
+          <p>Successful shipowners are implementing proactive cost control measures before entering the docking process. The most effective strategy involves detailed pre-docking planning, clear scope definition, and expert quotation analysis.</p>
+          <p>Working with an independent advisor who understands Chinese shipyard pricing logic can reduce overall docking costs by 15-25% while maintaining quality standards and project timelines.</p>
+        `
+      },
+      {
+        date:"2025-03-20",
+        title:"Top 5 Risks in Chinese Ship Repair & How to Avoid Unexpected Claims",
+        excerpt:"Learn the most common commercial risks during ship repair in China and how independent advisory protects you from budget overruns.",
+        keywords:"Ship Repair Risks, Claim Prevention",
+        content:`
+          <p>Ship repair projects in Chinese shipyards present unique commercial challenges that can lead to unexpected cost increases and contractual disputes. Understanding these risks in advance is crucial for maintaining budget control.</p>
+          <p><strong>1. Scope Creep and Unnecessary Upgrades</strong><br>
+          Many shipowners experience gradual scope expansion during the repair process. Yard personnel may recommend additional work that exceeds actual classification requirements. Clear scope definition and independent technical oversight prevent this issue.</p>
+          <p><strong>2. Low Initial Quotations with Subsequent Claims</strong><br>
+          Some yards offer artificially low quotations to secure contracts, then submit substantial variation claims during the project. Professional quotation review can identify this pattern before contract signing.</p>
+          <p><strong>3. Ambiguous Contract Terminology</strong><br>
+          Vague language in repair contracts often leads to disputes about responsibility and pricing. Well-defined contractual terms are essential for smooth project execution.</p>
+          <p><strong>4. Schedule Delays Causing Commercial Losses</strong><br>
+          Time is critical in shipping operations. Delays beyond the agreed docking period can result in significant financial losses for shipowners. Proper project planning minimizes this risk.</p>
+          <p><strong>5. Material Quality and Substitution Issues</strong><br>
+          Ensuring specified materials are actually used during repair requires diligent supervision. Independent inspection confirms compliance with owner requirements.</p>
+          <p>Working with an independent commercial advisor who understands both international shipowner expectations and Chinese shipyard practices creates the optimal balance for successful repair projects.</p>
+        `
+      },
+      {
+        date:"2025-03-17",
+        title:"Zhoushan vs. Other China Yards: Docking Cost Comparison 2025",
+        excerpt:"Full cost comparison between major Chinese shipyards, including pricing structure, quality, efficiency and total docking expenses.",
+        keywords:"Zhoushan Shipyards, Docking Cost Comparison",
+        content:`
+          <p>Choosing the right shipyard is one of the most critical decisions affecting dry docking costs and project success. This comprehensive comparison analyzes Zhoushan shipyards against other major repair centers in China.</p>
+          <p><strong>Zhoushan Shipyards</strong><br>
+          <strong>Cost Level:</strong> Medium to competitive<br>
+          <strong>Capacity:</strong> Excellent for bulk carriers, container ships, and medium-sized vessels<br>
+          <strong>Advantages:</strong> Strategic location, experienced workforce, good infrastructure<br>
+          <strong>Ideal For:</strong> Regular dry docking, standard repairs, maintenance projects</p>
+          <p><strong>Northern China Yards</strong><br>
+          <strong>Cost Level:</strong> Generally lower base prices<br>
+          <strong>Considerations:</strong> Weather limitations, seasonal scheduling constraints<br>
+          <strong>Best For:</strong> Cost-sensitive projects with flexible scheduling</p>
+          <p><strong>Southern China Yards</strong><br>
+          <strong>Cost Level:</strong> Premium pricing for specialized services<br>
+          <strong>Advantages:</strong> Year-round operation, modern facilities<br>
+          <strong>Specialization:</strong> Complex repairs, specialized projects</p>
+          <p>The total cost of docking involves more than just the initial quotation. Factors like efficiency, schedule reliability, and claim history significantly impact the final expense.</p>
+          <p>Zhoushan consistently provides the best overall value for most shipowners due to its balanced combination of competitive pricing, technical capability, and operational efficiency.</p>
+          <p>Independent docking advisory services help shipowners select the optimal yard based on vessel type, repair scope, budget requirements, and scheduling constraints.</p>
+        `
+      },
+      {
+        date:"2025-03-13",
+        title:"Quotation Review: How to Identify Overcharges in Chinese Yard Offers",
+        excerpt:"Professional guide to reviewing dry docking quotations, including item-by-item cost verification and market benchmarking.",
+        keywords:"Quotation Review, Cost Benchmarking",
+        content:`
+          <p>Reviewing shipyard quotations requires specialized knowledge of Chinese repair practices, pricing structures, and industry standards. Many shipowners struggle to identify potential overcharges and hidden costs in complex repair quotations.</p>
+          <p><strong>Key areas requiring detailed scrutiny:</strong></p>
+          <p><strong>1. Unit Pricing Analysis</strong><br>
+          Compare labor rates, material costs, and equipment charges against market benchmarks. Significant deviations require justification and explanation.</p>
+          <p><strong>2. Scope Verification</strong><br>
+          Ensure all quoted items directly correspond to the actual repair scope. Eliminate unnecessary items and confirm specification compliance.</p>
+          <p><strong>3. Hidden Cost Identification</strong><br>
+          Check for undefined items, provisional sums, and contingencies that may lead to additional charges during the project.</p>
+          <p><strong>4. Methodology Examination</strong><br>
+          Verify measurement methods, calculation bases, and charging mechanisms align with industry practices.</p>
+          <p><strong>5. Contractual Risk Assessment</strong><br>
+          Identify commercial risks related to variation orders, additional services, and schedule changes.</p>
+          <p>Professional quotation review typically identifies potential savings of 15-30% through the elimination of unnecessary charges, optimization of repair scope, and establishment of fair pricing.</p>
+          <p>Independent advisors with previous Chinese shipyard commercial experience provide invaluable insight into pricing logic and cost optimization opportunities.</p>
+        `
+      },
+      {
+        date:"2025-03-10",
+        title:"Effective Negotiation Strategies for Dry Docking in Chinese Yards",
+        excerpt:"Commercial negotiation tactics used by former shipyard managers to help shipowners secure fair pricing and favorable terms.",
+        keywords:"Docking Negotiation, China Shipyard Management",
+        content:`
+          <p>Negotiating successfully with Chinese shipyards requires understanding of local business practices, commercial logic, and cultural communication styles. The most effective approaches combine clear objectives with contextual awareness.</p>
+          <p><strong>Preparation is Fundamental</strong><br>
+          Thoroughly understand your repair requirements, market conditions, and cost benchmarks before entering negotiations. Knowledge provides the strongest negotiating position.</p>
+          <p><strong>Clear Scope Definition</strong><br>
+          Well-defined repair scope eliminates ambiguity and prevents subsequent claims. Detailed specifications create the foundation for fair pricing.</p>
+          <p><strong>Relationship Building</strong><br>
+          Chinese business culture emphasizes relationship development. Professional, respectful communication establishes trust and facilitates favorable outcomes.</p>
+          <p><strong>Commercial Realism</strong><br>
+          Understand yard cost structures and profit requirements. Realistic expectations lead to sustainable agreements and quality performance.</p>
+          <p><strong>Contractual Clarity</strong><br>
+          Ensure all agreements are clearly documented with precise terminology. Well-structured contracts prevent misunderstandings.</p>
+          <p>Former shipyard commercial managers bring unique insight into negotiation dynamics from the yard perspective. This specialized knowledge helps shipowners secure optimal terms while maintaining constructive working relationships.</p>
+          <p>Effective negotiation achieves the critical balance between cost control, quality assurance, and schedule reliability for successful dry docking projects.</p>
+        `
+      },
+      {
+        date:"2025-03-06",
+        title:"Planned Maintenance vs. Emergency Repair: Cost Difference in China",
+        excerpt:"Clear cost analysis between planned dry docking and emergency repairs, helping shipowners reduce long-term expenses.",
+        keywords:"Planned Dry Docking, Maintenance Cost Control",
+        content:`
+          <p>The financial difference between planned maintenance and emergency repairs in Chinese shipyards is substantial. Strategic shipowners recognize that proactive maintenance planning delivers significant cost advantages over crisis management.</p>
+          <p><strong>Cost Comparison Analysis</strong><br>
+          Emergency repairs typically cost <strong>40-100% more</strong> than planned maintenance for the same scope of work. Multiple factors contribute to this significant cost differential.</p>
+          <p><strong>Emergency Repair Premium Factors:</strong></p>
+          <p>1. Expedited service charges for accelerated scheduling</p>
+          <p>2. Premium pricing for off-hot working and resource reallocation</p>
+          <p>3. Limited negotiation position due to time constraints</p>
+          <p>4. Potential additional damage from delayed repairs</p>
+          <p>5. Commercial losses from vessel downtime</p>
+          <p><strong>Planned Maintenance Advantages:</strong></p>
+          <p>• Optimal scheduling at competitive price periods</p>
+          <p>• Comprehensive cost negotiation opportunities</p>
+          <p>• Optimal yard selection based on specific requirements</p>
+          <p>• Detailed scope planning and optimization</p>
+          <p>• Minimal business disruption</p>
+          <p>Forward-thinking shipowners implement 12-24 month maintenance planning cycles. This proactive approach ensures optimal docking timing, maximum cost efficiency, and minimal operational disruption.</p>
+          <p>Independent dry docking advisory services provide valuable support for maintenance planning, yard selection, quotation analysis, and cost control strategies.</p>
+        `
+      }
+    ];
+
+    // Load Blog List
     function loadMaritimeBlog(){
       const container=document.getElementById('blogContainer');
       if(!container)return;
-      const posts=[
-        {date:"2025-03-24",title:"2025 China Dry Dock Cost Trends: How to Control Budget for Bulk Carriers",excerpt:"Analysis of latest pricing changes in Zhoushan shipyards, hidden cost drivers, and practical cost control methods for shipowners during dry docking.",keywords:"Dry Docking Cost Control, China Shipyards"},
-        {date:"2025-03-20",title:"Top 5 Risks in Chinese Ship Repair & How to Avoid Unexpected Claims",excerpt:"Learn the most common commercial risks during ship repair in China and how independent advisory protects you from budget overruns.",keywords:"Ship Repair Risks, Claim Prevention"},
-        {date:"2025-03-17",title:"Zhoushan vs. Other China Yards: Docking Cost Comparison 2025",excerpt:"Full cost comparison between major Chinese shipyards, including pricing structure, quality, efficiency and total docking expenses.",keywords:"Zhoushan Shipyards, Docking Cost Comparison"},
-        {date:"2025-03-13",title:"Quotation Review: How to Identify Overcharges in Chinese Yard Offers",excerpt:"Professional guide to reviewing dry docking quotations, including item-by-item cost verification and market benchmarking.",keywords:"Quotation Review, Cost Benchmarking"},
-        {date:"2025-03-10",title:"Effective Negotiation Strategies for Dry Docking in Chinese Yards",excerpt:"Commercial negotiation tactics used by former shipyard managers to help shipowners secure fair pricing and favorable terms.",keywords:"Docking Negotiation, China Shipyard Management"},
-        {date:"2025-03-06",title:"Planned Maintenance vs. Emergency Repair: Cost Difference in China",excerpt:"Clear cost analysis between planned dry docking and emergency repairs, helping shipowners reduce long-term expenses.",keywords:"Planned Dry Docking, Maintenance Cost Control"}
-      ];
-      posts.forEach(post=>{
+      
+      blogPosts.forEach((post, index)=>{
         const card=document.createElement('div');
         card.className='service-card';
         card.innerHTML=`
@@ -941,11 +1145,30 @@
               <i class="fas fa-tag" style="margin-right:5px;"></i>${post.keywords}
             </span>
           </div>
-          <a href="#contact" class="btn btn-outline" style="margin-top:1.5rem;">Get Professional Advice</a>
+          <div class="btn btn-outline" style="margin-top:1.5rem;" onclick="openBlog(${index})">Read Full Article</div>
         `;
         container.appendChild(card);
       });
     }
+
+    // Open Blog Detail
+    function openBlog(index) {
+      const post = blogPosts[index];
+      document.getElementById('blogList').classList.add('hidden');
+      document.getElementById('blogDetail').classList.add('active');
+      document.getElementById('detailTitle').textContent = post.title;
+      document.getElementById('detailMeta').innerHTML = `<i class="fas fa-calendar-alt"></i> ${post.date} | <i class="fas fa-tag"></i> ${post.keywords}`;
+      document.getElementById('detailBody').innerHTML = post.content;
+      window.scrollTo(0, document.getElementById('blog').offsetTop - 100);
+    }
+
+    // Back to Blog List
+    document.getElementById('backBtn').addEventListener('click', function() {
+      document.getElementById('blogDetail').classList.remove('active');
+      document.getElementById('blogList').classList.remove('hidden');
+      window.scrollTo(0, document.getElementById('blog').offsetTop - 100);
+    });
+
     window.addEventListener('DOMContentLoaded',loadMaritimeBlog);
   </script>
 </body>
