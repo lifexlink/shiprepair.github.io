@@ -44,7 +44,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:w@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
@@ -63,9 +63,13 @@
       --white: #FFFFFF;
       --success-green: #22C55E;
       --warning-amber: #F59E0B;
+      --premium-gold: #FFD700;
       --font-primary: 'Inter', sans-serif;
       --font-secondary: 'Roboto Condensed', sans-serif;
       --transition: all 0.3s ease;
+      /* ZEDA Logo 配色变量 */
+      --zeda-blue: #04396A;
+      --zeda-gold: #CC9B2E;
     }
     body {
       font-family: var(--font-primary);
@@ -73,11 +77,24 @@
       color: var(--light-gray);
       line-height: 1.6;
       scroll-behavior: smooth;
+      background-image: url('https://picsum.photos/id/1041/1920/1080'), url('https://picsum.photos/id/176/1920/1080');
+      background-size: cover, cover;
+      background-position: center, center;
+      background-attachment: fixed, fixed;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(10, 26, 47, 0.88);
+      z-index: -1;
     }
     .container {
       max-width: 1280px;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 1.2rem;
     }
     .navbar {
       position: sticky;
@@ -95,29 +112,40 @@
       justify-content: space-between;
       flex-wrap: wrap;
     }
+
+    /* --------------------------
+       ZEDA SVG Logo 核心样式
+       -------------------------- */
     .logo {
       display: flex;
       align-items: center;
       gap: 1rem;
       text-decoration: none;
     }
+    /* Logo容器 - 适配原有布局 */
     .logo-icon {
-      font-size: 2.2rem;
-      color: var(--accent-blue);
-      background: rgba(42, 136, 173, 0.1);
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
+      width: 120px; /* 优化尺寸适配导航栏 */
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid rgba(42, 136, 173, 0.3);
-      transition: var(--transition);
+      transition: all 0.3s ease;
     }
+    /* SVG Logo样式 */
+    .zeda-logo-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: all 0.3s ease;
+    }
+    /* Logo悬浮效果 - 保持原有交互体验 */
     .logo:hover .logo-icon {
-      background: rgba(42, 136, 173, 0.2);
-      transform: rotate(5deg);
+      transform: translateY(-2px);
     }
+    .logo:hover .zeda-logo-svg {
+      filter: brightness(1.1);
+    }
+    /* Logo文字部分 - 保留原有样式 */
     .logo-text {
       display: flex;
       flex-direction: column;
@@ -137,9 +165,10 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
+
     .nav-links {
       display: flex;
-      gap: 2.5rem;
+      gap: 2.2rem;
     }
     .nav-links a {
       color: var(--light-gray);
@@ -173,6 +202,11 @@
       cursor: pointer;
     }
     @media (max-width: 768px) {
+      /* 移动端Logo适配 */
+      .logo-icon {
+        width: 90px;
+        height: 45px;
+      }
       .mobile-toggle {
         display: block;
       }
@@ -188,24 +222,27 @@
       .nav-links.active {
         display: flex;
       }
+      /* 移动端Logo文字适配 */
+      .logo-text .main {
+        font-size: 1.2rem;
+      }
     }
     .hero {
       position: relative;
-      background: linear-gradient(135deg, #0A1A2F, #112B4E);
       min-height: 85vh;
       display: flex;
       align-items: center;
       isolation: isolate;
-      margin-bottom: 5rem;
+      margin-bottom: 3rem;
     }
     .hero-content {
       max-width: 800px;
-      padding: 4rem 0;
+      padding: 3rem 0;
     }
     .hero h1 {
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-size: clamp(2.2rem, 5vw, 4.2rem);
       font-weight: 700;
-      line-height: 1.1;
+      line-height: 1.15;
       letter-spacing: -0.02em;
       background: linear-gradient(to right, var(--white), var(--accent-blue));
       -webkit-background-clip: text;
@@ -214,7 +251,7 @@
       font-family: var(--font-secondary);
     }
     .hero .tagline {
-      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
       color: var(--light-gray);
       margin-bottom: 2rem;
       border-left: 4px solid var(--accent-orange);
@@ -223,7 +260,7 @@
     .hero .highlight {
       color: var(--accent-orange);
       font-weight: 600;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
     }
     .cta-buttons {
       display: flex;
@@ -265,7 +302,7 @@
       transform: translateY(-3px);
     }
     .section {
-      padding: 6rem 0;
+      padding: 4.5rem 0;
       border-bottom: 1px solid rgba(138, 148, 166, 0.1);
     }
     .section:last-of-type {
@@ -273,10 +310,10 @@
     }
     .section-header {
       text-align: center;
-      margin-bottom: 4rem;
+      margin-bottom: 3rem;
     }
     .section-title {
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
       font-weight: 700;
       color: var(--white);
       margin-bottom: 1rem;
@@ -297,21 +334,21 @@
     }
     .section-subtitle {
       color: var(--metal-gray);
-      font-size: 1.1rem;
+      font-size: 1rem;
       max-width: 700px;
       margin: 0 auto;
       line-height: 1.7;
     }
     .about-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 3rem;
       align-items: center;
     }
     .about-text p {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
       color: var(--light-gray);
-      font-size: 1.1rem;
+      font-size: 1rem;
       line-height: 1.7;
     }
     .about-text strong {
@@ -320,24 +357,20 @@
     }
     .stats {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.5rem;
       background: var(--navy-medium);
-      padding: 2.5rem;
+      padding: 2rem;
       border-radius: 20px;
       border: 1px solid rgba(138, 148, 166, 0.1);
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
     .stat-item {
       text-align: center;
-      padding: 1rem 0;
-      border-right: 1px solid rgba(138, 148, 166, 0.1);
-    }
-    .stat-item:last-child,.stat-item:nth-child(2) {
-      border-right: none;
+      padding: 1rem 0.5rem;
     }
     .stat-number {
-      font-size: clamp(2rem, 4vw, 3rem);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
       font-weight: 700;
       color: var(--accent-orange);
       line-height: 1;
@@ -345,39 +378,21 @@
     }
     .stat-label {
       color: var(--metal-gray);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       margin-top: 0.8rem;
     }
-    @media (max-width: 900px) {
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-      }
-      .stats {
-        grid-template-columns: 1fr;
-      }
-      .stat-item {
-        border-right: none;
-        border-bottom: 1px solid rgba(138, 148, 166, 0.1);
-        padding-bottom: 1.5rem;
-      }
-      .stat-item:last-child {
-        border-bottom: none;
-        padding-bottom: 0;
-      }
-    }
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
       margin-top: 2rem;
     }
     .service-card {
       background: var(--navy-medium);
-      border-radius: 24px;
-      padding: 2.5rem 2rem;
+      border-radius: 20px;
+      padding: 2rem 1.8rem;
       border: 1px solid rgba(138, 148, 166, 0.1);
       transition: var(--transition);
       box-shadow: 0 10px 20px rgba(0,0,0,0.05);
@@ -387,24 +402,24 @@
       cursor: pointer;
     }
     .service-card:hover {
-      transform: translateY(-10px);
+      transform: translateY(-6px);
       border-color: var(--accent-blue);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
     }
     .card-icon {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       color: var(--accent-blue);
-      margin-bottom: 1.8rem;
+      margin-bottom: 1.5rem;
       background: rgba(42, 136, 173, 0.1);
-      width: 70px;
-      height: 70px;
-      border-radius: 16px;
+      width: 65px;
+      height: 65px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     .service-card h3 {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: 600;
       margin-bottom: 1rem;
       color: var(--white);
@@ -413,170 +428,126 @@
     .service-card p {
       color: var(--metal-gray);
       font-size: 0.95rem;
-      line-height: 1.7;
-      flex-grow: 1;
-    }
-    .process-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-    .process-card {
-      background: var(--navy-medium);
-      border-radius: 20px;
-      padding: 2rem 1.8rem;
-      border: 1px solid rgba(138, 148, 166, 0.1);
-      position: relative;
-      transition: var(--transition);
-    }
-    .process-card::before {
-      content: attr(data-step);
-      position: absolute;
-      top: -15px;
-      left: 2rem;
-      background: var(--accent-orange);
-      color: var(--navy-dark);
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 1.2rem;
-      box-shadow: 0 4px 10px rgba(255, 127, 36, 0.3);
-    }
-    .process-card:hover {
-      border-color: var(--accent-orange);
-      transform: translateY(-5px);
-    }
-    .process-card h3 {
-      color: var(--white);
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
-      padding-top: 1rem;
-      font-family: var(--font-secondary);
-    }
-    .process-card p {
-      color: var(--metal-gray);
       line-height: 1.6;
+      flex-grow: 1;
     }
     .list-columns {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .why-choose-columns {
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 1000px;
+    }
+    @media (max-width: 768px) {
+      .list-columns, .why-choose-columns {
+        grid-template-columns: 1fr;
+      }
     }
     .list-item {
       display: flex;
-      gap: 1.2rem;
+      gap: 1rem;
       align-items: flex-start;
       background: var(--navy-medium);
-      padding: 1.8rem;
-      border-radius: 16px;
+      padding: 1.5rem;
+      border-radius: 14px;
       border: 1px solid rgba(138, 148, 166, 0.1);
       transition: var(--transition);
     }
     .list-item:hover {
       border-color: var(--accent-blue);
-      transform: translateX(5px);
+      transform: translateX(4px);
     }
     .list-icon {
       color: var(--success-green);
-      font-size: 1.5rem;
-      min-width: 30px;
+      font-size: 1.3rem;
+      min-width: 26px;
       margin-top: 2px;
     }
     .list-icon.warning {
       color: var(--warning-amber);
     }
+    .list-icon.premium {
+      color: var(--premium-gold);
+    }
     .list-text {
       color: var(--light-gray);
       font-weight: 500;
       line-height: 1.6;
+      font-size: 0.95rem;
+    }
+    .highlight-text {
+      color: var(--premium-gold);
+      font-weight: 700;
+      font-size: 1rem;
     }
     .case-study {
       max-width: 700px;
       margin: 0 auto;
       background: linear-gradient(135deg, var(--navy-medium), var(--navy-dark));
-      border-radius: 24px;
-      padding: 3rem;
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
       border: 1px solid rgba(42, 136, 173, 0.2);
       box-shadow: 0 15px 30px rgba(0,0,0,0.1);
     }
     .case-study h3 {
       color: var(--white);
-      font-size: 1.8rem;
-      margin-bottom: 1.5rem;
+      font-size: 1.6rem;
+      margin-bottom: 1.2rem;
       font-family: var(--font-secondary);
     }
     .case-study p {
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       color: var(--light-gray);
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
     .case-study .highlight {
       color: var(--success-green);
       font-weight: 700;
       font-size: 1.8rem;
-      margin-top: 1.5rem;
+      margin-top: 1.2rem;
       display: block;
       text-align: center;
       font-family: var(--font-secondary);
     }
     .case-note {
       text-align: center;
-      margin-top: 2rem;
+      margin-top: 1.5rem;
       color: var(--metal-gray);
       font-style: italic;
     }
     .request-section {
       background: linear-gradient(135deg, var(--navy-medium), var(--navy-dark));
-      border-radius: 30px;
-      padding: 4rem 2rem;
+      border-radius: 24px;
+      padding: 3rem 2rem;
       margin: 0 auto;
-      max-width: 900px;
+      max-width: 800px;
       border: 1px solid rgba(42, 136, 173, 0.2);
+      text-align: center;
     }
     .request-section p {
-      font-size: 1.2rem;
-      color: var(--light-gray);
-      margin-bottom: 2rem;
-      text-align: center;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .request-list {
-      list-style: none;
-      margin: 2rem 0 3rem;
-    }
-    .request-list li {
-      margin: 1rem 0;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
       font-size: 1.1rem;
       color: var(--light-gray);
-      padding: 0.8rem 1.2rem;
-      background: rgba(10,26,47,0.5);
-      border-radius: 12px;
-    }
-    .request-list li i {
-      color: var(--accent-blue);
-      width: 24px;
-      font-size: 1.3rem;
+      margin-bottom: 2.5rem;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
     }
     .request-note {
       color: var(--success-green);
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       text-align: center;
       font-weight: 600;
+      margin-top: 1.5rem;
     }
     .contact-card {
       background: linear-gradient(135deg, var(--navy-medium), var(--navy-dark));
-      border-radius: 32px;
-      padding: 4rem 2rem;
+      border-radius: 28px;
+      padding: 3.5rem 2rem;
       border: 1px solid rgba(42, 136, 173, 0.2);
       text-align: center;
       max-width: 800px;
@@ -584,7 +555,7 @@
       box-shadow: 0 15px 40px rgba(0,0,0,0.1);
     }
     .contact-name {
-      font-size: 2.2rem;
+      font-size: 2rem;
       font-weight: 700;
       color: var(--white);
       margin-bottom: 0.5rem;
@@ -592,15 +563,15 @@
     }
     .contact-title {
       color: var(--accent-blue);
-      font-size: 1.3rem;
-      margin-bottom: 2.5rem;
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
     }
     .contact-details {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 2rem 3rem;
-      margin-top: 2rem;
+      gap: 1.8rem 2.5rem;
+      margin-top: 1.5rem;
     }
     .contact-item {
       display: flex;
@@ -608,10 +579,11 @@
       gap: 0.75rem;
       color: var(--light-gray);
       text-decoration: none;
-      font-size: 1.1rem;
+      font-size: 1rem;
       transition: var(--transition);
       padding: 0.8rem 1.2rem;
       border-radius: 10px;
+      cursor: pointer;
     }
     .contact-item i {
       color: var(--accent-orange);
@@ -625,8 +597,8 @@
     }
     .confidential-note {
       color: var(--metal-gray);
-      margin-top: 2rem;
-      font-size: 0.95rem;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -635,16 +607,16 @@
     .footer {
       background: var(--navy-medium);
       text-align: center;
-      padding: 4rem 0 2rem;
+      padding: 3.5rem 0 2rem;
       color: var(--metal-gray);
       font-size: 0.9rem;
-      margin-top: 5rem;
+      margin-top: 4rem;
     }
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 2rem;
-      margin-bottom: 2rem;
+      gap: 1.8rem;
+      margin-bottom: 1.8rem;
       flex-wrap: wrap;
     }
     .footer-links a {
@@ -656,7 +628,7 @@
       color: var(--accent-orange);
     }
     .footer-copyright {
-      margin-top: 2rem;
+      margin-top: 1.8rem;
       padding-top: 1.5rem;
       border-top: 1px solid rgba(138, 148, 166, 0.1);
     }
@@ -667,7 +639,7 @@
     hr {
       border: none;
       border-top: 1px solid rgba(138, 148, 166, 0.1);
-      margin: 2rem 0;
+      margin: 1.5rem 0;
       max-width: 200px;
       margin-left: auto;
       margin-right: auto;
@@ -676,13 +648,13 @@
       scroll-behavior: smooth;
     }
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
     }
     .section {
       animation: fadeIn 0.6s ease forwards;
     }
-    .service-card,.process-card,.list-item {
+    .service-card,.list-item {
       animation: fadeIn 0.6s ease forwards;
       opacity: 0;
     }
@@ -694,8 +666,8 @@
     /* Blog Detail Styles */
     .blog-detail {
       display: none;
-      padding: 4rem 0;
-      min-height: 80vh;
+      padding: 3rem 0;
+      min-height: 70vh;
     }
     .blog-detail.active {
       display: block;
@@ -704,34 +676,34 @@
       max-width: 800px;
       margin: 0 auto;
       background: var(--navy-medium);
-      padding: 3rem;
-      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      border-radius: 20px;
       border: 1px solid rgba(42, 136, 173, 0.2);
     }
     .blog-content h1 {
-      font-size: 2rem;
+      font-size: 1.8rem;
       color: var(--white);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
       font-family: var(--font-secondary);
     }
     .blog-meta {
       color: var(--accent-orange);
-      margin-bottom: 2rem;
-      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
       display: flex;
       align-items: center;
       gap: 1rem;
     }
     .blog-body {
       color: var(--light-gray);
-      font-size: 1.1rem;
+      font-size: 1rem;
       line-height: 1.8;
     }
     .blog-body p {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
     }
     .back-btn {
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
@@ -750,21 +722,105 @@
     .blog-list.hidden {
       display: none;
     }
+
+    /* Modal Form */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .modal-box {
+      background: var(--navy-medium);
+      padding: 35px;
+      border-radius: 18px;
+      width: 90%;
+      max-width: 520px;
+      border: 1px solid rgba(42,136,173,0.2);
+    }
+    .modal-box h2 {
+      color: var(--white);
+      margin-bottom: 20px;
+      text-align: center;
+      font-family: var(--font-secondary);
+    }
+    .modal-box input, .modal-box textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: none;
+      background: var(--navy-dark);
+      color: var(--light-gray);
+      font-size: 0.95rem;
+    }
+    .modal-box button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      background: var(--accent-orange);
+      color: var(--navy-dark);
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      margin-top: 12px;
+      font-size: 1rem;
+    }
+
+    /* SVG Logo 颜色类 */
+    .blue { fill: var(--zeda-blue); }
+    .gold { fill: var(--zeda-gold); }
   </style>
 </head>
 <body>
+
+  <!-- Inquiry Modal -->
+  <div class="modal-overlay" id="inquiryModal">
+    <div class="modal-box">
+      <h2>Project Inquiry</h2>
+      <input type="text" id="vesselName" placeholder="Vessel Name" required>
+      <input type="text" id="companyName" placeholder="Company Name" required>
+      <input type="text" id="contactPerson" placeholder="Contact Person" required>
+      <input type="email" id="contactEmail" placeholder="Contact Email" required>
+      <input type="text" id="repairScope" placeholder="Main Repair Scope" required>
+      <textarea id="requirements" placeholder="Main Requirements" rows="3" required></textarea>
+      <input type="text" id="repairSchedule" placeholder="Planned Repair Time" required>
+      <button onclick="sendInquiry()">Submit & Send</button>
+    </div>
+  </div>
+
   <nav class="navbar">
     <div class="container">
       <a href="#home" class="logo">
-        <div class="logo-icon"><i class="fas fa-ship"></i></div>
-        <div class="logo-text"><span class="main">Zhoushan Eastern</span><span class="sub">DOCKING ADVISORY</span></div>
+        <!-- ZEDA SVG Logo 核心区域 -->
+        <div class="logo-icon">
+          <svg class="zeda-logo-svg" viewBox="0 0 1200 620" xmlns="http://www.w3.org/2000/svg" aria-label="ZEDA logo">
+            <path class="blue" d="M110 250 H375 C360 287 334 322 296 367 L245 430 C286 431 330 431 374 428 V450 C286 455 201 454 128 447 L126 444 C177 386 229 326 281 267 H145 Z"/>
+            <path class="blue" d="M394 250 H560 V287 H442 V333 H540 V366 H442 V414 H562 V450 H394 Z"/>
+            <path class="blue" fill-rule="evenodd" d="M582 250 H675 C736 250 780 264 812 292 C842 318 857 338 857 357 C857 384 843 406 815 425 C782 447 736 458 675 458 H582 Z M629 287 V411 H674 C715 411 746 401 766 383 C780 370 787 360 787 350 C787 339 780 328 766 316 C745 297 715 287 674 287 Z"/>
+            <path class="blue" d="M828 450 L932 219 H980 L1089 450 H1028 L953 285 L890 450 Z"/>
+            <path class="gold" d="M897 360 H980 L988 387 H890 Z"/>
+            <path class="gold" d="M112 446 C163 462 220 473 287 476 C370 479 462 470 557 456 C659 441 757 430 855 428 C936 427 1009 433 1080 448 C1098 452 1117 456 1136 462 C1119 458 1101 455 1083 452 C1009 439 936 434 854 437 C757 441 660 453 559 469 C463 483 370 493 287 492 C218 491 158 480 104 458 Z"/>
+            <path class="blue" d="M135 480 C197 500 264 511 340 513 C434 516 533 506 635 488 C741 469 844 453 946 453 C1025 453 1097 462 1164 482 C1100 475 1028 472 946 474 C845 476 742 492 637 512 C535 531 435 542 340 540 C263 538 194 522 130 490 Z"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="main">Zhoushan Eastern</span>
+          <span class="sub">DRY DOCKING ADVISORY</span>
+        </div>
       </a>
       <div class="mobile-toggle" id="mobileToggle"><i class="fas fa-bars"></i></div>
       <div class="nav-links" id="navLinks">
         <a href="#home">HOME</a>
         <a href="#about">ABOUT</a>
         <a href="#services">SERVICES</a>
-        <a href="#process">PROCESS</a>
+        <a href="#solutions">SOLUTIONS</a>
         <a href="#casestudies">CASE STUDIES</a>
         <a href="#blog">BLOG</a>
         <a href="#contact">CONTACT</a>
@@ -825,17 +881,21 @@
       </div>
     </section>
 
-    <section id="process" class="section">
+    <section id="solutions" class="section">
       <div class="container">
         <div class="section-header">
-          <h2 class="section-title">Docking Advisory Process</h2>
-          <p class="section-subtitle">A structured approach to optimize your dry docking project in China</p>
+          <h2 class="section-title">Marine Solutions</h2>
+          <p class="section-subtitle">Professional retrofit & technical solutions for vessel optimization</p>
         </div>
-        <div class="process-grid">
-          <div class="process-card" data-step="1"><h3>Pre-Docking Review</h3><p>Review vessel condition and expected repair scope before contacting shipyards. Define clear project objectives and budget parameters.</p></div>
-          <div class="process-card" data-step="2"><h3>Shipyard Selection</h3><p>Identify suitable Chinese yards based on vessel type, repair scope and schedule requirements. Verify yard capabilities and track record.</p></div>
-          <div class="process-card" data-step="3"><h3>Quotation Benchmarking</h3><p>Analyze quotations and identify hidden cost risks. Compare pricing against industry benchmarks and yard cost structures.</p></div>
-          <div class="process-card" data-step="4"><h3>Negotiation Support</h3><p>Support shipowners in commercial negotiation and scope clarification. Secure favorable terms and minimize variation claim exposure.</p></div>
+        <div class="cards-grid">
+          <div class="service-card"><div class="card-icon"><i class="fas fa-leaf"></i></div><h3>Carbon Capture & Decarbonization</h3><p>Full lifecycle advisory for onboard carbon capture retrofit, compliance and cost optimization for all vessel types.</p></div>
+          <div class="service-card"><div class="card-icon"><i class="fas fa-water"></i></div><h3>Air Lubrication Systems</h3><p>Professional fuel-saving technology evaluation, installation supervision and performance monitoring services.</p></div>
+          <div class="service-card"><div class="card-icon"><i class="fas fa-plug"></i></div><h3>Shore Power (AMP) Retrofit</h3><p>Complete design, shipyard coordination and regulatory compliance for zero-emission port operations.</p></div>
+          <div class="service-card"><div class="card-icon"><i class="fas fa-cogs"></i></div><h3>Energy Efficiency Upgrades</h3><p>VFD retrofits, waste heat recovery and engine optimization for lower fuel consumption and operational costs.</p></div>
+          <div class="service-card"><div class="card-icon"><i class="fas fa-sync"></i></div><h3>Ballast Water Treatment</h3><p>System selection, installation supervision and certification support for global regulatory compliance.</p></div>
+          <div class="service-card"><div class="card-icon"><i class="fas fa-tools"></i></div><h3>Full Repair & Retrofit Management</h3><p>End-to-end project management from planning and design to delivery and sea trial acceptance.</p></div>
+          <div class="service-card"><div class="card-icon"><i class="fas fa-box"></i></div><h3>Spare Parts & Supply Chain</h3><p>Reliable, cost-effective marine spare parts sourcing from qualified Chinese manufacturers and suppliers.</p></div>
+          <div class="service-card"><div class="card-icon"><i class="fas fa-bolt"></i></div><h3>Emergency Technical Support</h3><p>24/7 rapid response service for vessel emergency repair, offshore support and critical issue resolution.</p></div>
         </div>
       </div>
     </section>
@@ -846,12 +906,13 @@
           <h2 class="section-title">Why Shipowners Work With Us</h2>
           <p class="section-subtitle">Unique advantages for shipowners working with Chinese shipyards</p>
         </div>
-        <div class="list-columns">
+        <div class="list-columns why-choose-columns">
           <div class="list-item"><div class="list-icon"><i class="fas fa-check-circle"></i></div><div class="list-text">Former Chinese Shipyard Commercial Management Experience</div></div>
           <div class="list-item"><div class="list-icon"><i class="fas fa-check-circle"></i></div><div class="list-text">Independent Advisory — Not Representing Any Shipyard</div></div>
           <div class="list-item"><div class="list-icon"><i class="fas fa-check-circle"></i></div><div class="list-text">Deep Understanding of Shipyard Pricing Logic</div></div>
           <div class="list-item"><div class="list-icon"><i class="fas fa-check-circle"></i></div><div class="list-text">Focused on Owner-Side Cost Protection</div></div>
           <div class="list-item"><div class="list-icon"><i class="fas fa-check-circle"></i></div><div class="list-text">Confidential and Professional Service</div></div>
+          <div class="list-item"><div class="list-icon premium"><i class="fas fa-star"></i></div><div class="list-text"><span class="highlight-text">Most importantly: Save money, save time, and enjoy total peace of mind with hassle-free service</span></div></div>
         </div>
       </div>
     </section>
@@ -892,15 +953,13 @@
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">Maritime Industry Insights & Blog</h2>
-          <p class="section-subtitle">Weekly dry docking, ship repair and cost control guidance for shipowners working with Chinese shipyards</p>
+          <p class="section-subtitle">Monthly dry docking, ship repair and cost control guidance for shipowners working with Chinese shipyards</p>
         </div>
 
-        <!-- Blog List -->
         <div class="blog-list" id="blogList">
           <div class="cards-grid" id="blogContainer"></div>
         </div>
 
-        <!-- Blog Detail -->
         <div class="blog-detail" id="blogDetail">
           <div class="blog-content">
             <div class="back-btn" id="backBtn"><i class="fas fa-arrow-left"></i> Back to Blog</div>
@@ -910,7 +969,7 @@
           </div>
         </div>
 
-        <div style="text-align:center; margin-top:3.5rem;">
+        <div style="text-align:center; margin-top:3rem;">
           <a href="#contact" class="btn btn-primary">Request Project Analysis</a>
         </div>
       </div>
@@ -921,13 +980,9 @@
         <div class="request-section">
           <h2 class="section-title">Request Docking Advisory</h2>
           <p>If your vessel is planning dry docking in China within the next 12 months, you are welcome to contact us for a confidential preliminary discussion.</p>
-          <ul class="request-list">
-            <li><i class="fas fa-ship"></i> Vessel Type</li>
-            <li><i class="fas fa-weight-hanging"></i> DWT / GT</li>
-            <li><i class="fas fa-calendar-alt"></i> Next Special Survey Date</li>
-            <li><i class="fas fa-clock"></i> Expected Docking Window</li>
-            <li><i class="fas fa-tasks"></i> Main works scope</li>
-          </ul>
+          <div style="margin-top: 1rem;">
+            <div class="btn btn-primary" onclick="openModal()" style="min-width: 220px;">Send Docking Inquiry</div>
+          </div>
           <p class="request-note"><i class="fas fa-lock"></i> Confidential consultation available</p>
         </div>
       </div>
@@ -944,7 +999,7 @@
           <div class="contact-title">Commercial & Dry Docking Consultant</div>
           <div class="contact-details">
             <a href="tel:+8613735028115" class="contact-item"><i class="fas fa-phone-alt"></i> +86 137 3502 8115</a>
-            <a href="mailto:rollinrich@163.com" class="contact-item"><i class="fas fa-envelope"></i> rollinrich@163.com</a>
+            <div class="contact-item" onclick="openModal()"><i class="fas fa-envelope"></i> info@dockingadvisory.cn</div>
             <span class="contact-item"><i class="fas fa-map-marker-alt"></i> Zhoushan, China</span>
           </div>
           <hr>
@@ -957,7 +1012,7 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-links">
-        <a href="#home">Home</a><a href="#about">About</a><a href="#services">Services</a><a href="#process">Process</a><a href="#casestudies">Case Studies</a><a href="#blog">Blog</a><a href="#contact">Contact</a>
+        <a href="#home">Home</a><a href="#about">About</a><a href="#services">Services</a><a href="#solutions">Solutions</a><a href="#casestudies">Case Studies</a><a href="#blog">Blog</a><a href="#contact">Contact</a>
       </div>
       <div class="footer-copyright">
         <p>© 2025 Zhoushan Eastern Docking Advisory. Independent | Owner-Side Only</p>
@@ -967,6 +1022,7 @@
   </footer>
 
   <script>
+    // Mobile Nav
     const mobileToggle = document.getElementById('mobileToggle');
     const navLinks = document.getElementById('navLinks');
     mobileToggle.addEventListener('click',()=>{
@@ -988,147 +1044,87 @@
     const observer = new IntersectionObserver((entries)=>{
       entries.forEach(e=>e.isIntersecting&&(e.target.style.opacity='1',e.target.style.transform='translateY(0)'));
     },{threshold:0.1});
-    document.querySelectorAll('.service-card,.process-card,.list-item').forEach(el=>observer.observe(el));
+    document.querySelectorAll('.service-card,.list-item').forEach(el=>observer.observe(el));
 
-    // Blog Data with Full Content
-    const blogPosts = [
-      {
-        date:"2025-03-24",
-        title:"2025 China Dry Dock Cost Trends: How to Control Budget for Bulk Carriers",
-        excerpt:"Analysis of latest pricing changes in Zhoushan shipyards, hidden cost drivers, and practical cost control methods for shipowners during dry docking.",
-        keywords:"Dry Docking Cost Control, China Shipyards",
-        content:`
-          <p>The dry docking cost landscape in China is evolving rapidly in 2025, especially for bulk carrier operators. Shipowners are facing increasing pressure from rising material costs, labor shortages, and fluctuating currency exchange rates that impact overall docking expenses.</p>
-          <p>Zhoushan shipyards remain the most popular choice for medium to large bulk carriers due to their strategic location, competitive pricing, and experienced workforce. However, cost structures have shifted significantly over the past 12 months.</p>
-          <p><strong>Key cost drivers in 2025:</strong></p>
-          <p>1. Steel plate and material costs have increased by approximately 12-15% compared to 2024</p>
-          <p>2. Skilled labor costs continue rising as experienced shipyard workers become more scarce</p>
-          <p>3. Environmental compliance requirements add new layers of expenses for waste management and safety</p>
-          <p>4. Utility and energy costs impact overall dry docking operational expenses</p>
-          <p>Successful shipowners are implementing proactive cost control measures before entering the docking process. The most effective strategy involves detailed pre-docking planning, clear scope definition, and expert quotation analysis.</p>
-          <p>Working with an independent advisor who understands Chinese shipyard pricing logic can reduce overall docking costs by 15-25% while maintaining quality standards and project timelines.</p>
-        `
-      },
-      {
-        date:"2025-03-20",
-        title:"Top 5 Risks in Chinese Ship Repair & How to Avoid Unexpected Claims",
-        excerpt:"Learn the most common commercial risks during ship repair in China and how independent advisory protects you from budget overruns.",
-        keywords:"Ship Repair Risks, Claim Prevention",
-        content:`
-          <p>Ship repair projects in Chinese shipyards present unique commercial challenges that can lead to unexpected cost increases and contractual disputes. Understanding these risks in advance is crucial for maintaining budget control.</p>
-          <p><strong>1. Scope Creep and Unnecessary Upgrades</strong><br>
-          Many shipowners experience gradual scope expansion during the repair process. Yard personnel may recommend additional work that exceeds actual classification requirements. Clear scope definition and independent technical oversight prevent this issue.</p>
-          <p><strong>2. Low Initial Quotations with Subsequent Claims</strong><br>
-          Some yards offer artificially low quotations to secure contracts, then submit substantial variation claims during the project. Professional quotation review can identify this pattern before contract signing.</p>
-          <p><strong>3. Ambiguous Contract Terminology</strong><br>
-          Vague language in repair contracts often leads to disputes about responsibility and pricing. Well-defined contractual terms are essential for smooth project execution.</p>
-          <p><strong>4. Schedule Delays Causing Commercial Losses</strong><br>
-          Time is critical in shipping operations. Delays beyond the agreed docking period can result in significant financial losses for shipowners. Proper project planning minimizes this risk.</p>
-          <p><strong>5. Material Quality and Substitution Issues</strong><br>
-          Ensuring specified materials are actually used during repair requires diligent supervision. Independent inspection confirms compliance with owner requirements.</p>
-          <p>Working with an independent commercial advisor who understands both international shipowner expectations and Chinese shipyard practices creates the optimal balance for successful repair projects.</p>
-        `
-      },
-      {
-        date:"2025-03-17",
-        title:"Zhoushan vs. Other China Yards: Docking Cost Comparison 2025",
-        excerpt:"Full cost comparison between major Chinese shipyards, including pricing structure, quality, efficiency and total docking expenses.",
-        keywords:"Zhoushan Shipyards, Docking Cost Comparison",
-        content:`
-          <p>Choosing the right shipyard is one of the most critical decisions affecting dry docking costs and project success. This comprehensive comparison analyzes Zhoushan shipyards against other major repair centers in China.</p>
-          <p><strong>Zhoushan Shipyards</strong><br>
-          <strong>Cost Level:</strong> Medium to competitive<br>
-          <strong>Capacity:</strong> Excellent for bulk carriers, container ships, and medium-sized vessels<br>
-          <strong>Advantages:</strong> Strategic location, experienced workforce, good infrastructure<br>
-          <strong>Ideal For:</strong> Regular dry docking, standard repairs, maintenance projects</p>
-          <p><strong>Northern China Yards</strong><br>
-          <strong>Cost Level:</strong> Generally lower base prices<br>
-          <strong>Considerations:</strong> Weather limitations, seasonal scheduling constraints<br>
-          <strong>Best For:</strong> Cost-sensitive projects with flexible scheduling</p>
-          <p><strong>Southern China Yards</strong><br>
-          <strong>Cost Level:</strong> Premium pricing for specialized services<br>
-          <strong>Advantages:</strong> Year-round operation, modern facilities<br>
-          <strong>Specialization:</strong> Complex repairs, specialized projects</p>
-          <p>The total cost of docking involves more than just the initial quotation. Factors like efficiency, schedule reliability, and claim history significantly impact the final expense.</p>
-          <p>Zhoushan consistently provides the best overall value for most shipowners due to its balanced combination of competitive pricing, technical capability, and operational efficiency.</p>
-          <p>Independent docking advisory services help shipowners select the optimal yard based on vessel type, repair scope, budget requirements, and scheduling constraints.</p>
-        `
-      },
-      {
-        date:"2025-03-13",
-        title:"Quotation Review: How to Identify Overcharges in Chinese Yard Offers",
-        excerpt:"Professional guide to reviewing dry docking quotations, including item-by-item cost verification and market benchmarking.",
-        keywords:"Quotation Review, Cost Benchmarking",
-        content:`
-          <p>Reviewing shipyard quotations requires specialized knowledge of Chinese repair practices, pricing structures, and industry standards. Many shipowners struggle to identify potential overcharges and hidden costs in complex repair quotations.</p>
-          <p><strong>Key areas requiring detailed scrutiny:</strong></p>
-          <p><strong>1. Unit Pricing Analysis</strong><br>
-          Compare labor rates, material costs, and equipment charges against market benchmarks. Significant deviations require justification and explanation.</p>
-          <p><strong>2. Scope Verification</strong><br>
-          Ensure all quoted items directly correspond to the actual repair scope. Eliminate unnecessary items and confirm specification compliance.</p>
-          <p><strong>3. Hidden Cost Identification</strong><br>
-          Check for undefined items, provisional sums, and contingencies that may lead to additional charges during the project.</p>
-          <p><strong>4. Methodology Examination</strong><br>
-          Verify measurement methods, calculation bases, and charging mechanisms align with industry practices.</p>
-          <p><strong>5. Contractual Risk Assessment</strong><br>
-          Identify commercial risks related to variation orders, additional services, and schedule changes.</p>
-          <p>Professional quotation review typically identifies potential savings of 15-30% through the elimination of unnecessary charges, optimization of repair scope, and establishment of fair pricing.</p>
-          <p>Independent advisors with previous Chinese shipyard commercial experience provide invaluable insight into pricing logic and cost optimization opportunities.</p>
-        `
-      },
-      {
-        date:"2025-03-10",
-        title:"Effective Negotiation Strategies for Dry Docking in Chinese Yards",
-        excerpt:"Commercial negotiation tactics used by former shipyard managers to help shipowners secure fair pricing and favorable terms.",
-        keywords:"Docking Negotiation, China Shipyard Management",
-        content:`
-          <p>Negotiating successfully with Chinese shipyards requires understanding of local business practices, commercial logic, and cultural communication styles. The most effective approaches combine clear objectives with contextual awareness.</p>
-          <p><strong>Preparation is Fundamental</strong><br>
-          Thoroughly understand your repair requirements, market conditions, and cost benchmarks before entering negotiations. Knowledge provides the strongest negotiating position.</p>
-          <p><strong>Clear Scope Definition</strong><br>
-          Well-defined repair scope eliminates ambiguity and prevents subsequent claims. Detailed specifications create the foundation for fair pricing.</p>
-          <p><strong>Relationship Building</strong><br>
-          Chinese business culture emphasizes relationship development. Professional, respectful communication establishes trust and facilitates favorable outcomes.</p>
-          <p><strong>Commercial Realism</strong><br>
-          Understand yard cost structures and profit requirements. Realistic expectations lead to sustainable agreements and quality performance.</p>
-          <p><strong>Contractual Clarity</strong><br>
-          Ensure all agreements are clearly documented with precise terminology. Well-structured contracts prevent misunderstandings.</p>
-          <p>Former shipyard commercial managers bring unique insight into negotiation dynamics from the yard perspective. This specialized knowledge helps shipowners secure optimal terms while maintaining constructive working relationships.</p>
-          <p>Effective negotiation achieves the critical balance between cost control, quality assurance, and schedule reliability for successful dry docking projects.</p>
-        `
-      },
-      {
-        date:"2025-03-06",
-        title:"Planned Maintenance vs. Emergency Repair: Cost Difference in China",
-        excerpt:"Clear cost analysis between planned dry docking and emergency repairs, helping shipowners reduce long-term expenses.",
-        keywords:"Planned Dry Docking, Maintenance Cost Control",
-        content:`
-          <p>The financial difference between planned maintenance and emergency repairs in Chinese shipyards is substantial. Strategic shipowners recognize that proactive maintenance planning delivers significant cost advantages over crisis management.</p>
-          <p><strong>Cost Comparison Analysis</strong><br>
-          Emergency repairs typically cost <strong>40-100% more</strong> than planned maintenance for the same scope of work. Multiple factors contribute to this significant cost differential.</p>
-          <p><strong>Emergency Repair Premium Factors:</strong></p>
-          <p>1. Expedited service charges for accelerated scheduling</p>
-          <p>2. Premium pricing for off-hot working and resource reallocation</p>
-          <p>3. Limited negotiation position due to time constraints</p>
-          <p>4. Potential additional damage from delayed repairs</p>
-          <p>5. Commercial losses from vessel downtime</p>
-          <p><strong>Planned Maintenance Advantages:</strong></p>
-          <p>• Optimal scheduling at competitive price periods</p>
-          <p>• Comprehensive cost negotiation opportunities</p>
-          <p>• Optimal yard selection based on specific requirements</p>
-          <p>• Detailed scope planning and optimization</p>
-          <p>• Minimal business disruption</p>
-          <p>Forward-thinking shipowners implement 12-24 month maintenance planning cycles. This proactive approach ensures optimal docking timing, maximum cost efficiency, and minimal operational disruption.</p>
-          <p>Independent dry docking advisory services provide valuable support for maintenance planning, yard selection, quotation analysis, and cost control strategies.</p>
-        `
+    // Modal Functions
+    function openModal() {
+      document.getElementById('inquiryModal').style.display = 'flex';
+    }
+    function closeModal() {
+      document.getElementById('inquiryModal').style.display = 'none';
+    }
+    window.onclick = function(e) {
+      const modal = document.getElementById('inquiryModal');
+      if (e.target === modal) closeModal();
+    }
+    function sendInquiry() {
+      const vessel = document.getElementById('vesselName').value;
+      const company = document.getElementById('companyName').value;
+      const person = document.getElementById('contactPerson').value;
+      const email = document.getElementById('contactEmail').value;
+      const scope = document.getElementById('repairScope').value;
+      const req = document.getElementById('requirements').value;
+      const schedule = document.getElementById('repairSchedule').value;
+
+      if(!vessel||!company||!person||!email||!scope||!schedule){
+        alert('Please fill in all required fields');
+        return;
       }
+
+      const subject = `New Inquiry: ${vessel} | ${company}`;
+      const body = `
+Vessel Name: ${vessel}
+Company: ${company}
+Contact Person: ${person}
+Email: ${email}
+Repair Scope: ${scope}
+Requirements: ${req}
+Schedule: ${schedule}
+      `;
+      window.open(`mailto:info@dockingadvisory.cn?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+      closeModal();
+      alert('Inquiry sent successfully!');
+    }
+
+    // Blog Data
+    const blogPosts = [
+      {date:"2025-03-24",title:"2025 China Dry Dock Cost Trends: How to Control Budget for Bulk Carriers",excerpt:"Analysis of latest pricing changes in Zhoushan shipyards, hidden cost drivers, and practical cost control methods for shipowners during dry docking.",keywords:"Dry Docking Cost Control, China Shipyards",content:`<p>The dry docking cost landscape in China is evolving rapidly in 2025, especially for bulk carrier operators. Shipowners are facing increasing pressure from rising material costs, labor shortages, and fluctuating currency exchange rates that impact overall docking expenses.</p><p>Zhoushan shipyards remain the most popular choice for medium to large bulk carriers due to their strategic location, competitive pricing, and experienced workforce. However, cost structures have shifted significantly over the past 12 months.</p><p><strong>Key cost drivers in 2025:</strong></p><p>1. Steel plate and material costs have increased by approximately 12-15% compared to 2024</p><p>2. Skilled labor costs continue rising as experienced shipyard workers become more scarce</p><p>3. Environmental compliance requirements add new layers of expenses for waste management and safety</p><p>4. Utility and energy costs impact overall dry docking operational expenses</p><p>Successful shipowners are implementing proactive cost control measures before entering the docking process. The most effective strategy involves detailed pre-docking planning, clear scope definition, and expert quotation analysis.</p><p>Working with an independent advisor who understands Chinese shipyard pricing logic can reduce overall docking costs by 15-25% while maintaining quality standards and project timelines.</p>`},
+      {date:"2025-03-20",title:"Top 5 Risks in Chinese Ship Repair & How to Avoid Unexpected Claims",excerpt:"Learn the most common commercial risks during ship repair in China and how independent advisory protects you from budget overruns.",keywords:"Ship Repair Risks, Claim Prevention",content:`<p>Ship repair projects in Chinese shipyards present unique commercial challenges that can lead to unexpected cost increases and contractual disputes. Understanding these risks in advance is crucial for maintaining budget control.</p><p><strong>1. Scope Creep and Unnecessary Upgrades</strong><br>Many shipowners experience gradual scope expansion during the repair process. Yard personnel may recommend additional work that exceeds actual classification requirements. Clear scope definition and independent technical oversight prevent this issue.</p><p><strong>2. Low Initial Quotations with Subsequent Claims</strong><br>Some yards offer artificially low quotations to secure contracts, then submit substantial variation claims during the project. Professional quotation review can identify this pattern before contract signing.</p><p><strong>3. Ambiguous Contract Terminology</strong><br>Vague language in repair contracts often leads to disputes about responsibility and pricing. Well-defined contractual terms are essential for smooth project execution.</p><p><strong>4. Schedule Delays Causing Commercial Losses</strong><br>Time is critical in shipping operations. Delays beyond the agreed docking period can result in significant financial losses for shipowners. Proper project planning minimizes this risk.</p><p><strong>5. Material Quality and Substitution Issues</strong><br>Ensuring specified materials are actually used during repair requires diligent supervision. Independent inspection confirms compliance with owner requirements.</p><p>Working with an independent commercial advisor who understands both international shipowner expectations and Chinese shipyard practices creates the optimal balance for successful repair projects.</p>`},
+      {date:"2025-03-17",title:"Zhoushan vs. Other China Yards: Docking Cost Comparison 2025",excerpt:"Full cost comparison between major Chinese shipyards, including pricing structure, quality, efficiency and total docking expenses.",keywords:"Zhoushan Shipyards, Docking Cost Comparison",content:`<p>Choosing the right shipyard is one of the most critical decisions affecting dry docking costs and project success. This comprehensive comparison analyzes Zhoushan shipyards against other major repair centers in China.</p><p><strong>Zhoushan Shipyards</strong><br><strong>Cost Level:</strong> Medium to competitive<br><strong>Capacity:</strong> Excellent for bulk carriers, container ships, and medium-sized vessels<br><strong>Advantages:</strong> Strategic location, experienced workforce, good infrastructure<br><strong>Ideal For:</strong> Regular dry docking, standard repairs, maintenance projects</p><p><strong>Northern China Yards</strong><br><strong>Cost Level:</strong> Generally lower base prices<br><strong>Considerations:</strong> Weather limitations, seasonal scheduling constraints<br><strong>Best For:</strong> Cost-sensitive projects with flexible scheduling</p><p><strong>Southern China Yards</strong><br><strong>Cost Level:</strong> Premium pricing for specialized services<br><strong>Advantages:</strong> Year-round operation, modern facilities<br><strong>Specialization:</strong> Complex repairs, specialized projects</p><p>The total cost of docking involves more than just the initial quotation. Factors like efficiency, schedule reliability, and claim history significantly impact the final expense.</p><p>Zhoushan consistently provides the best overall value for most shipowners due to its balanced combination of competitive pricing, technical capability, and operational efficiency.</p><p>Independent docking advisory services help shipowners select the optimal yard based on vessel type, repair scope, budget requirements, and scheduling constraints.</p>`},
+      {date:"2025-03-13",title:"Quotation Review: How to Identify Overcharges in Chinese Yard Offers",excerpt:"Professional guide to reviewing dry docking quotations, including item-by-item cost verification and market benchmarking.",keywords:"Quotation Review, Cost Benchmarking",content:`<p>Reviewing shipyard quotations requires specialized knowledge of Chinese repair practices, pricing structures, and industry standards. Many shipowners struggle to identify potential overcharges and hidden costs in complex repair quotations.</p><p><strong>Key areas requiring detailed scrutiny:</strong></p><p><strong>1. Unit Pricing Analysis</strong><br>Compare labor rates, material costs, and equipment charges against market benchmarks. Significant deviations require justification and explanation.</p><p><strong>2. Scope Verification</strong><br>Ensure all quoted items directly correspond to the actual repair scope. Eliminate unnecessary items and confirm specification compliance.</p><p><strong>3. Hidden Cost Identification</strong><br>Check for undefined items, provisional sums, and contingencies that may lead to additional charges during the project.</p><p><strong>4. Methodology Examination</strong><br>Verify measurement methods, calculation bases, and charging mechanisms align with industry practices.</p><p><strong>5. Contractual Risk Assessment</strong><br>Identify commercial risks related to variation orders, additional services, and schedule changes.</p><p>Professional quotation review typically identifies potential savings of 15-30% through the elimination of unnecessary charges, optimization of repair scope, and establishment of fair pricing.</p><p>Independent advisors with previous Chinese shipyard commercial experience provide invaluable insight into pricing logic and cost optimization opportunities.</p>`},
+      {date:"2025-03-10",title:"Effective Negotiation Strategies for Dry Docking in Chinese Yards",excerpt:"Commercial negotiation tactics used by former shipyard managers to help shipowners secure fair pricing and favorable terms.",keywords:"Docking Negotiation, China Shipyard Management",content:`<p>Negotiating successfully with Chinese shipyards requires understanding of local business practices, commercial logic, and cultural communication styles. The most effective approaches combine clear objectives with contextual awareness.</p><p><strong>Preparation is Fundamental</strong><br>Thoroughly understand your repair requirements, market conditions, and cost benchmarks before entering negotiations. Knowledge provides the strongest negotiating position.</p><p><strong>Clear Scope Definition</strong><br>Well-defined repair scope eliminates ambiguity and prevents subsequent claims. Detailed specifications create the foundation for fair pricing.</p><p><strong>Relationship Building</strong><br>Chinese business culture emphasizes relationship development. Professional, respectful communication establishes trust and facilitates favorable outcomes.</p><p><strong>Commercial Realism</strong><br>Understand yard cost structures and profit requirements. Realistic expectations lead to sustainable agreements and quality performance.</p><p><strong>Contractual Clarity</strong><br>Ensure all agreements are clearly documented with precise terminology. Well-structured contracts prevent misunderstandings.</p><p>Former shipyard commercial managers bring unique insight into negotiation dynamics from the yard perspective. This specialized knowledge helps shipowners secure optimal terms while maintaining constructive working relationships.</p><p>Effective negotiation achieves the critical balance between cost control, quality assurance, and schedule reliability for successful dry docking projects.</p>`},
+      {date:"2025-03-06",title:"Planned Maintenance vs. Emergency Repair: Cost Difference in China",excerpt:"Clear cost analysis between planned dry docking and emergency repairs, helping shipowners reduce long-term expenses.",keywords:"Planned Dry Docking, Maintenance Cost Control",content:`<p>The financial difference between planned maintenance and emergency repairs in Chinese shipyards is substantial. Strategic shipowners recognize that proactive maintenance planning delivers significant cost advantages over crisis management.</p><p><strong>Cost Comparison Analysis</strong><br>Emergency repairs typically cost <strong>40-100% more</strong> than planned maintenance for the same scope of work. Multiple factors contribute to this significant cost differential.</p><p><strong>Emergency Repair Premium Factors:</strong></p><p>1. Expedited service charges for accelerated scheduling</p><p>2. Premium pricing for off-hot working and resource reallocation</p><p>3. Limited negotiation position due to time constraints</p><p>4. Potential additional damage from delayed repairs</p><p>5. Commercial losses from vessel downtime</p><p><strong>Planned Maintenance Advantages:</strong></p><p>• Optimal scheduling at competitive price periods</p><p>• Comprehensive cost negotiation opportunities</p><p>• Optimal yard selection based on specific requirements</p><p>• Detailed scope planning and optimization</p><p>• Minimal business disruption</p><p>Forward-thinking shipowners implement 12-24 month maintenance planning cycles. This proactive approach ensures optimal docking timing, maximum cost efficiency, and minimal operational disruption.</p><p>Independent dry docking advisory services provide valuable support for maintenance planning, yard selection, quotation analysis, and cost control strategies.</p>`}
     ];
 
-    // Load Blog List
+    // Auto Generate Monthly Blog - FIXED: ENGLISH MONTH ONLY
+    async function autoGenerateMonthlyArticle() {
+      const last = localStorage.getItem('lastBlogGen');
+      const now = Date.now();
+      const month = 30*24*60*60*1000;
+      if(!last || now - last > month){
+        const date = new Date();
+        const englishMonths = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+        const monthName = englishMonths[date.getMonth()];
+        const year = date.getFullYear();
+        
+        const newPost = {
+          date: date.toISOString().split('T')[0],
+          title: `Monthly Dry Dock Update: ${monthName} ${year}`,
+          excerpt: "Latest industry updates, cost trends and regulatory changes for shipowners docking in China.",
+          keywords: "Monthly Update, China Dry Dock Trends",
+          content: `<p>Welcome to our monthly industry update for ${monthName} ${year}. This article provides shipowners with the latest developments in Chinese ship repair pricing, regulatory changes, and operational best practices.</p><p>Cost trends remain stable with selective increases in material and labor expenses. Strategic planning continues to deliver the strongest cost savings for vessel operators.</p><p>Our professional advisory services help shipowners navigate changing market conditions while maintaining budget control and project efficiency.</p>`
+        };
+        blogPosts.unshift(newPost);
+        localStorage.setItem('lastBlogGen', now);
+        loadMaritimeBlog();
+      }
+    }
+
+    // Load Blog
     function loadMaritimeBlog(){
       const container=document.getElementById('blogContainer');
       if(!container)return;
-      
+      container.innerHTML = '';
       blogPosts.forEach((post, index)=>{
         const card=document.createElement('div');
         card.className='service-card';
@@ -1151,7 +1147,6 @@
       });
     }
 
-    // Open Blog Detail
     function openBlog(index) {
       const post = blogPosts[index];
       document.getElementById('blogList').classList.add('hidden');
@@ -1162,14 +1157,16 @@
       window.scrollTo(0, document.getElementById('blog').offsetTop - 100);
     }
 
-    // Back to Blog List
     document.getElementById('backBtn').addEventListener('click', function() {
       document.getElementById('blogDetail').classList.remove('active');
       document.getElementById('blogList').classList.remove('hidden');
       window.scrollTo(0, document.getElementById('blog').offsetTop - 100);
     });
 
-    window.addEventListener('DOMContentLoaded',loadMaritimeBlog);
+    window.addEventListener('DOMContentLoaded',()=>{
+      autoGenerateMonthlyArticle();
+      loadMaritimeBlog();
+    });
   </script>
 </body>
 </html>
