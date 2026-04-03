@@ -723,7 +723,7 @@
       display: none;
     }
 
-    /* Modal Form */
+    /* Modal Form - Formspree 适配 */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -772,6 +772,25 @@
       margin-top: 12px;
       font-size: 1rem;
     }
+    .modal-box button:disabled {
+      background: #8A94A6;
+      cursor: not-allowed;
+    }
+    .form-status {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 0.95rem;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    .success {
+      color: var(--success-green);
+      background: rgba(34, 197, 94, 0.1);
+    }
+    .error {
+      color: #ef4444;
+      background: rgba(239, 68, 68, 0.1);
+    }
 
     /* SVG Logo 颜色类 */
     .blue { fill: var(--zeda-blue); }
@@ -780,18 +799,26 @@
 </head>
 <body>
 
-  <!-- Inquiry Modal -->
+  <!-- Inquiry Modal - 集成Formspree -->
   <div class="modal-overlay" id="inquiryModal">
     <div class="modal-box">
       <h2>Project Inquiry</h2>
-      <input type="text" id="vesselName" placeholder="Vessel Name" required>
-      <input type="text" id="companyName" placeholder="Company Name" required>
-      <input type="text" id="contactPerson" placeholder="Contact Person" required>
-      <input type="email" id="contactEmail" placeholder="Contact Email" required>
-      <input type="text" id="repairScope" placeholder="Main Repair Scope" required>
-      <textarea id="requirements" placeholder="Main Requirements" rows="3" required></textarea>
-      <input type="text" id="repairSchedule" placeholder="Planned Repair Time" required>
-      <button onclick="sendInquiry()">Submit & Send</button>
+      <!-- Formspree表单 - 核心修改 -->
+      <form id="inquiryForm" action="https://formspree.io/f/xgonplvd" method="POST">
+        <input type="text" name="vesselName" placeholder="Vessel Name" required>
+        <input type="text" name="companyName" placeholder="Company Name" required>
+        <input type="text" name="contactPerson" placeholder="Contact Person" required>
+        <input type="email" name="contactEmail" placeholder="Contact Email" required>
+        <input type="text" name="repairScope" placeholder="Main Repair Scope" required>
+        <textarea name="requirements" placeholder="Main Requirements" rows="3" required></textarea>
+        <input type="text" name="repairSchedule" placeholder="Planned Repair Time" required>
+        <!-- 隐藏字段 - 收件邮箱关联 -->
+        <input type="hidden" name="_to" value="info@dockingadvisory.cn">
+        <input type="hidden" name="_subject" value="New ZEDA Project Inquiry">
+        <input type="hidden" name="_format" value="plain">
+        <button type="submit" id="submitBtn">Submit & Send</button>
+        <div id="formStatus" class="form-status"></div>
+      </form>
     </div>
   </div>
 
@@ -1046,9 +1073,13 @@
     },{threshold:0.1});
     document.querySelectorAll('.service-card,.list-item').forEach(el=>observer.observe(el));
 
-    // Modal Functions
+    // Modal Functions - Formspree 适配
     function openModal() {
       document.getElementById('inquiryModal').style.display = 'flex';
+      // 重置表单状态
+      document.getElementById('formStatus').textContent = '';
+      document.getElementById('formStatus').className = 'form-status';
+      document.getElementById('submitBtn').disabled = false;
     }
     function closeModal() {
       document.getElementById('inquiryModal').style.display = 'none';
@@ -1057,34 +1088,52 @@
       const modal = document.getElementById('inquiryModal');
       if (e.target === modal) closeModal();
     }
-    function sendInquiry() {
-      const vessel = document.getElementById('vesselName').value;
-      const company = document.getElementById('companyName').value;
-      const person = document.getElementById('contactPerson').value;
-      const email = document.getElementById('contactEmail').value;
-      const scope = document.getElementById('repairScope').value;
-      const req = document.getElementById('requirements').value;
-      const schedule = document.getElementById('repairSchedule').value;
 
-      if(!vessel||!company||!person||!email||!scope||!schedule){
-        alert('Please fill in all required fields');
-        return;
+    // Formspree 表单提交处理
+    document.getElementById('inquiryForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submitBtn');
+      const formStatus = document.getElementById('formStatus');
+      
+      // 禁用按钮，防止重复提交
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      formStatus.textContent = '';
+      formStatus.className = 'form-status';
+
+      try {
+        const formData = new FormData(this);
+        const response = await fetch(this.action, {
+          method: this.method,
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          // 提交成功
+          formStatus.textContent = 'Inquiry sent successfully! We will contact you shortly.';
+          formStatus.className = 'form-status success';
+          this.reset(); // 重置表单
+          // 3秒后关闭弹窗
+          setTimeout(() => {
+            closeModal();
+          }, 3000);
+        } else {
+          // 提交失败
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to send inquiry. Please try again.');
+        }
+      } catch (error) {
+        formStatus.textContent = error.message;
+        formStatus.className = 'form-status error';
+      } finally {
+        // 恢复按钮
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit & Send';
       }
-
-      const subject = `New Inquiry: ${vessel} | ${company}`;
-      const body = `
-Vessel Name: ${vessel}
-Company: ${company}
-Contact Person: ${person}
-Email: ${email}
-Repair Scope: ${scope}
-Requirements: ${req}
-Schedule: ${schedule}
-      `;
-      window.open(`mailto:info@dockingadvisory.cn?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
-      closeModal();
-      alert('Inquiry sent successfully!');
-    }
+    });
 
     // Blog Data
     const blogPosts = [
